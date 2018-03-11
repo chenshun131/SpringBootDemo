@@ -52,4 +52,16 @@ public class UserLogCacheImpl implements UserLogCache {
         return "清空缓存成功";
     }
 
+    @Cacheable(key = "#p0")
+    @Override
+    public String get1(int i) {
+        return "name1";
+    }
+
+    @Cacheable(key = "#p0")
+    @Override
+    public String get2(int i) {
+        return "name2";
+    }
+
 }

@@ -50,4 +50,14 @@ public class ApiController {
         return userLogCache.deleteById(id);
     }
 
+    @RequestMapping(value = "/get1")
+    public String get1() {
+        return userLogCache.get1(1);
+    }
+
+    @RequestMapping(value = "/get2")
+    public String get2() {
+        return userLogCache.get2(1);
+    }
+
 }

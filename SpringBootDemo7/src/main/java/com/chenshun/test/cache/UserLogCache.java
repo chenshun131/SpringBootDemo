@@ -35,4 +35,8 @@ public interface UserLogCache {
      */
     String deleteById(Integer id);
 
+    String get1(int i);
+
+    String get2(int i);
+
 }

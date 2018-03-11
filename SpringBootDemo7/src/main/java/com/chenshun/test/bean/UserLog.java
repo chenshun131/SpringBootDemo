@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -13,7 +14,9 @@ import java.util.Date;
  * Description: 实体类 <p />
  */
 @Entity
-public class UserLog {
+public class UserLog implements Serializable {
+
+    private static final long serialVersionUID = 6291026143789380914L;
 
     @Id
     @GeneratedValue
