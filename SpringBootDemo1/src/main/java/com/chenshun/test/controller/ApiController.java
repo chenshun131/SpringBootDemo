@@ -11,7 +11,7 @@ import java.util.HashMap;
  * Description: <p />
  */
 @RestController
-@RequestMapping(value = "/api", method = RequestMethod.POST)
+@RequestMapping(value = "/api", method = {RequestMethod.GET, RequestMethod.POST})
 public class ApiController {
 
     @RequestMapping(value = "/get1")

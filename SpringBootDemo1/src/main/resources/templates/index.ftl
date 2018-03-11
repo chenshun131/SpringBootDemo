@@ -14,6 +14,11 @@
 
 <script type="text/javascript" src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
 
+<form method="POST" enctype="multipart/form-data" action="/file/upload">
+    文件：<input type="file" name="roncooFile"/>
+    <input type="submit" value="上传"/>
+</form>
+
 <script>
     $(function () {
         $('#title').click(function () {
