@@ -22,10 +22,10 @@ public interface UserLogCache {
     /**
      * 更新
      *
-     * @param roncooUserLog
+     * @param userLog
      * @return
      */
-    UserLog updateById(UserLog roncooUserLog);
+    UserLog updateById(UserLog userLog);
 
     /**
      * 删除

@@ -2,6 +2,7 @@ package com.chenshun.test.controller;
 
 import com.chenshun.test.bean.UserLog;
 import com.chenshun.test.cache.UserLogCache;
+import com.chenshun.test.component.RoncooJavaMailComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,15 @@ public class ApiController {
 
     @Autowired
     private UserLogCache userLogCache;
+
+    @Autowired
+    private RoncooJavaMailComponent component;
+
+    @RequestMapping(value = "mail")
+    public String mail(String email) {
+        component.sendMail(email);
+        return "success";
+    }
 
     @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping(value = "/get", method = RequestMethod.POST)
