@@ -1,8 +1,10 @@
 package com.chenshun.test.controller;
 
+import com.chenshun.test.bean.RoncooUser;
 import com.chenshun.test.bean.UserLog;
 import com.chenshun.test.cache.UserLogCache;
 import com.chenshun.test.component.RoncooJavaMailComponent;
+import com.chenshun.test.mapper.RoncooUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +26,14 @@ public class ApiController {
 
     @Autowired
     private RoncooJavaMailComponent component;
+
+    @Autowired
+    private RoncooUserMapper roncooUserMappper;
+
+    @RequestMapping(value = "/select2", method = RequestMethod.GET)
+    public RoncooUser get(@RequestParam(defaultValue = "1") Integer id) {
+        return roncooUserMappper.selectByPrimaryKey(id);
+    }
 
     @RequestMapping(value = "mail")
     public String mail(String email) {

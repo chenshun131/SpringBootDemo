@@ -1,5 +1,6 @@
 package com.chenshun.test.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -8,7 +9,9 @@ import java.util.Date;
  * Version: V1.0  <p />
  * Description: 实体类 <p />
  */
-public class User {
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 3489163037939462514L;
 
     private int id;
 

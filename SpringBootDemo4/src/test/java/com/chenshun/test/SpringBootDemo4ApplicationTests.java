@@ -16,49 +16,49 @@ import java.util.Date;
 public class SpringBootDemo4ApplicationTests {
 
     @Autowired
-    private UserDao roncooUserDao;
+    private UserDao userDao;
 
     @Test
     public void insert() {
-        User roncooUser = new User();
-        roncooUser.setName("测试");
-        roncooUser.setCreateTime(new Date());
-        int result = roncooUserDao.insert(roncooUser);
+        User user = new User();
+        user.setName("测试");
+        user.setCreateTime(new Date());
+        int result = userDao.insert(user);
         System.out.println(result);
     }
 
     @Test
     public void delete() {
-        int result = roncooUserDao.deleteById(1);
+        int result = userDao.deleteById(1);
         System.out.println(result);
     }
 
     @Test
     public void update() {
-        User roncooUser = new User();
-        roncooUser.setId(2);
-        roncooUser.setName("测试2");
-        roncooUser.setCreateTime(new Date());
-        int result = roncooUserDao.updateById(roncooUser);
+        User user = new User();
+        user.setId(2);
+        user.setName("测试2");
+        user.setCreateTime(new Date());
+        int result = userDao.updateById(user);
         System.out.println(result);
     }
 
     @Test
     public void select() {
-        User result = roncooUserDao.selectById(2);
+        User result = userDao.selectById(2);
         System.out.println(result);
     }
 
     @Test
     public void select2() {
-        User result = roncooUserDao.selectById(7);
+        User result = userDao.selectById(7);
         System.out.println(result);
     }
 
     // 分页测试
     @Test
     public void queryForPage() {
-        Page<User> result = roncooUserDao.queryForPage(1, 20, "测试");
+        Page<User> result = userDao.queryForPage(1, 20, "测试");
         System.out.println(result.getList());
     }
 
