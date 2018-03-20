@@ -5,6 +5,7 @@ import com.chenshun.test.mapper.RoncooUserMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +22,7 @@ public class ApiController {
 
     @ApiOperation(value = "查找", notes = "根据用户ID查找用户")
     @RequestMapping(value = "/select", method = RequestMethod.GET)
+    @Transactional
     public RoncooUser get(@RequestParam(defaultValue = "1") Integer id) {
         return roncooUserMappper.selectByPrimaryKey(id);
     }
