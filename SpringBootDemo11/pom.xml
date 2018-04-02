@@ -69,12 +69,21 @@
                     <!-- 详见：https://github.com/spotify/docker-maven-plugin    Invalid repository name ... only [a-z0-9-_.] are allowed -->
                     <!-- 修改成 <imageName>chenshun131/${project.name}:${project.version}</imageName> 可用于发布到私有仓库 -->
                     <imageName>chenshun131/${project.name}:${project.version}</imageName>
-                    <dockerDirectory>${basedir}/docker/</dockerDirectory> <!-- 指定 Dockerfile 路径-->
-                    <!-- 设置编译参数 -->
-                    <buildArgs>
-                        <APP_NAME>${project.name}</APP_NAME>
-                        <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
-                    </buildArgs>
+                    <!-- 基础镜像，这里是相当于 Dockerfile 的 FROM openjdk:8-jre -->
+                    <baseImage>openjdk:8-jre</baseImage>
+                    <maintainer>chenshun "1539831174@qq.com"</maintainer>
+                    <exposes>
+                        <expose>8080</expose>
+                    </exposes>
+                    <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+                    <!-- 从 target 目录中拷贝 服务.jar 到镜像的根目录，这个 服务.jar 必须存在，需要提前执行 mvn package 指令来创建 jar -->
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
                 </configuration>
             </plugin>
         </plugins>

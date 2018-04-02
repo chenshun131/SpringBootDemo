@@ -1,5 +1,5 @@
 FROM openjdk:8-jre
-MAINTAINER Dchenshun "1539831174@qq.com"
+MAINTAINER chenshun "1539831174@qq.com"
 
 # Create service directory
 ARG APP_NAME
