@@ -16,4 +16,6 @@ public interface AMapper {
 
     int insert(List<A> list);
 
+//    int insert(A list);
+
 }
