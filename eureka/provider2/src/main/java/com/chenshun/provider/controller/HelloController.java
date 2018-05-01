@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
+
 /**
  * User: mew <p />
  * Time: 18/4/25 10:28  <p />
@@ -39,6 +42,12 @@ public class HelloController {
     @RequestMapping(value = "user4/{name}", method = RequestMethod.DELETE)
     public void user4(@PathVariable("name") String name) {
         System.out.println("222222 " + name);
+    }
+
+    @RequestMapping("hello")
+    public String hello() throws InterruptedException {
+        TimeUnit.SECONDS.sleep(ThreadLocalRandom.current().nextInt(0, 5));
+        return "Hello World";
     }
 
 }
