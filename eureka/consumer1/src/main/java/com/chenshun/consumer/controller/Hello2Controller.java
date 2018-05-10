@@ -1,6 +1,7 @@
 package com.chenshun.consumer.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.http.ResponseEntity;
@@ -14,17 +15,23 @@ import org.springframework.web.client.RestTemplate;
  * Version: V1.0  <p />
  * Description:  <p />
  */
-@RestController("hello2")
+@RequestMapping("hello2")
+@RestController
 public class Hello2Controller {
 
     @Autowired
+    @Qualifier(value = "restTemplate")
     private RestTemplate restTemplate;
+
+    @Autowired
+    @Qualifier(value = "restTemplate2")
+    private RestTemplate restTemplate2;
 
     @RequestMapping("test1")
     public String test1() {
         // 方式1> 直接使用 restTemplate，url 写死
         ResponseEntity<String> responseEntity =
-                restTemplate.getForEntity("http://localhost:8080/hello/user2?name=chenshun", String.class);
+                restTemplate2.getForEntity("http://localhost:8081/hello/user2?name=chenshun", String.class);
         return responseEntity.getBody();
     }
 
@@ -36,7 +43,7 @@ public class Hello2Controller {
         // 方式2> 利用 loadBalanceClient 通过应用名获取 url ，然后再使用 restTemplate
         ServiceInstance serviceInstance = loadBalancerClient.choose("HELLO-SERVICE-GROUP");
         String url = String.format("http://%s:%s/hello/user2?name=chenshun", serviceInstance.getHost(), serviceInstance.getPort());
-        ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class);
+        ResponseEntity<String> responseEntity = restTemplate2.getForEntity(url, String.class);
         return responseEntity.getBody();
     }
 

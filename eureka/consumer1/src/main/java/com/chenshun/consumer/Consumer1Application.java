@@ -9,9 +9,14 @@ import org.springframework.web.client.RestTemplate;
 @SpringCloudApplication
 public class Consumer1Application {
 
-    @Bean
+    @Bean("restTemplate")
     @LoadBalanced
     public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+
+    @Bean("restTemplate2")
+    public RestTemplate restTemplate2() {
         return new RestTemplate();
     }
 
