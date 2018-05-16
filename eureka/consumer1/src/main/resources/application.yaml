@@ -1,0 +1,12 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: consumer1
+#
+eureka:
+  client:
+    service-url:
+      defaultZone: http://peer1:1111/eureka/,http://peer2:2222/eureka/
+    fetch-registry: true
+    registry-fetch-interval-seconds: 30

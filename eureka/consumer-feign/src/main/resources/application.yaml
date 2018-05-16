@@ -1,0 +1,24 @@
+server:
+  port: 9003
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  application:
+    name: consumer1
+  http:
+    encoding:
+      force: true
+#
+eureka:
+  client:
+    service-url:
+      defaultZone: http://peer1:1111/eureka/,http://peer2:2222/eureka/
+    fetch-registry: true
+    registry-fetch-interval-seconds: 30
+#
+feign:
+  hystrix:
+    enabled: true
+logging:
+  level:
+    com.chenshun.test.service.HelloService2: debug

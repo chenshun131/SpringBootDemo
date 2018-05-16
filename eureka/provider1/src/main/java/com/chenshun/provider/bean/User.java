@@ -12,6 +12,8 @@ public class User {
 
     private int age;
 
+    private String type = "1111";
+
     public User() {
     }
 
@@ -36,9 +38,17 @@ public class User {
         this.age = age;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
-        return "User{name='" + name + '\'' + ", age=" + age + '}';
+        return "111 User{name='" + name + '\'' + ", age=" + age + '}';
     }
 
 }

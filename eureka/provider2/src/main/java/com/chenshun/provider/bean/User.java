@@ -12,6 +12,8 @@ public class User {
 
     private int age;
 
+    private String type = "2222";
+
     public User() {
     }
 
@@ -34,6 +36,14 @@ public class User {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override
