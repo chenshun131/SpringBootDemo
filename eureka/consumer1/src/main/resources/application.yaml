@@ -3,6 +3,9 @@ server:
 spring:
   application:
     name: consumer1
+  sleuth:
+    sampler:
+      probability: 1
 #
 eureka:
   client:

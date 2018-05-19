@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
 
-    @Value("${from}")
+    @Value("${from:unknow from}")
     private String from;
 
     @Autowired

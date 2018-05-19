@@ -1,28 +1,29 @@
 #
 server:
   port: 6001
+# 应用自定义配置 logback
+logging:
+  config: classpath:logback-config.xml
 spring:
   application:
     name: config-server
-  kafka:
-    bootstrap-servers: ci-server:9092,ci-server:9093,ci-server:9094
-    producer:
-      retries: 0
-      # 每次批量发送消息的数量
-      batch-size: 16384
-      buffer-memory: 33554432
-      # 指定消息key和消息体的编解码方式
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
-    consumer:
-      group-id: eshop-cache-group
-      auto-offset-reset: earliest
-      enable-auto-commit: true
-      auto-commit-interval: 1s
-      # 指定消息key和消息体的编解码方式
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  profiles:
+    active: dev
   cloud:
+    stream:
+      # 指定用kafka stream来作为默认消息中间件
+      default-binder: kafka
+      kafka:
+        # 来自 KafkaBinderConfigurationProperties
+        binder:
+          brokers: ci-server:9092,ci-server:9093,ci-server:9094
+          # 如果需要传递自定义header信息，需要在此处声明，不然自定义消息头是不会出现在最终消息当中的
+          # headers: myType
+          configuration:
+            auto:
+              offset:
+              # 可以设置原生kafka属性，比如设置新的消费组从最新的offset开始消费
+              reset: latest
     config:
       server:
         git:
@@ -32,8 +33,8 @@ spring:
           default-label: master
           # 仓库路径下的相对搜索位置，可以配置多个
           search-paths: /demo
-          password: 1539831174
-          username: xxxx
+          username: xxxxxx
+          password: xxxxxx
   security:
     user:
       name: chenshun

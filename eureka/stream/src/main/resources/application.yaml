@@ -1,0 +1,25 @@
+#
+server:
+  port: 6101
+logging:
+  config: classpath:logback-config.xml
+spring:
+  application:
+    name: config-server
+  profiles:
+    active: dev
+  cloud:
+    stream:
+      # \u6307\u5B9A\u7528kafka stream\u6765\u4F5C\u4E3A\u9ED8\u8BA4\u6D88\u606F\u4E2D\u95F4\u4EF6
+      default-binder: kafka
+      kafka:
+        # \u6765\u81EA KafkaBinderConfigurationProperties
+        binder:
+          brokers: ci-server:9092,ci-server:9093,ci-server:9094
+          # \u5982\u679C\u9700\u8981\u4F20\u9012\u81EA\u5B9A\u4E49header\u4FE1\u606F\uFF0C\u9700\u8981\u5728\u6B64\u5904\u58F0\u660E\uFF0C\u4E0D\u7136\u81EA\u5B9A\u4E49\u6D88\u606F\u5934\u662F\u4E0D\u4F1A\u51FA\u73B0\u5728\u6700\u7EC8\u6D88\u606F\u5F53\u4E2D\u7684
+          # headers: myType
+          configuration:
+            auto:
+              offset:
+              # \u53EF\u4EE5\u8BBE\u7F6E\u539F\u751Fkafka\u5C5E\u6027\uFF0C\u6BD4\u5982\u8BBE\u7F6E\u65B0\u7684\u6D88\u8D39\u7EC4\u4ECE\u6700\u65B0\u7684offset\u5F00\u59CB\u6D88\u8D39
+              reset: latest
