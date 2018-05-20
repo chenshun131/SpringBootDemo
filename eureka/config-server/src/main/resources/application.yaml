@@ -35,10 +35,6 @@ spring:
           search-paths: /demo
           username: xxxxxx
           password: xxxxxx
-  security:
-    user:
-      name: chenshun
-      password: 123456
 #
 eureka:
   client:
@@ -46,3 +42,10 @@ eureka:
       defaultZone: http://peer1:1111/eureka/,http://peer2:2222/eureka/
     fetch-registry: true
     registry-fetch-interval-seconds: 30
+#
+management:
+  endpoints:
+    web:
+      exposure:
+        # 端外暴露的端点，使用 "*" 表示暴露所有的端点，bus-refresh 默认是不暴露的
+        include: "bus-refresh"

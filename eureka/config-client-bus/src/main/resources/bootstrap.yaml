@@ -21,8 +21,6 @@ spring:
       profile: dev
       # 对应配置文件规则中 {label} 部分，也就是 git 的分支。如果配置中心使用的是本地存储，则该参数无用
       label: master
-      username: chenshun
-      password: 123456
       fail-fast: true
       retry:
         # 初始重试间隔时间(单位毫秒)，默认 1000 毫秒
