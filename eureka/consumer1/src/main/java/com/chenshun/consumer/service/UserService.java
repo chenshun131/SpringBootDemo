@@ -1,7 +1,7 @@
 package com.chenshun.consumer.service;
 
 import com.chenshun.consumer.bean.User;
-import org.apache.commons.lang.StringUtils;
+import com.sun.deploy.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
 
