@@ -1,0 +1,36 @@
+spring:
+  rabbitmq:
+    host: ci-server
+    port: 5672
+    username: chenshun
+    password: 123456
+  cloud:
+    config:
+      # 对应配置文件规则中 {application} 部分
+      name: consume
+      # 对应配置文件规则中 {profile} 部分
+      profile: dev
+      # 对应配置文件规则中 {label} 部分，也就是 git 的分支。如果配置中心使用的是本地存储，则该参数无用
+      label: master
+      fail-fast: true
+      retry:
+        # 初始重试间隔时间(单位毫秒)，默认 1000 毫秒
+        initial-interval: 1000
+        # 下一间隔的乘数，默认 1.1，所以初始间隔时间是 1000 毫秒，下一次失败后的间隔时间为 1100 毫秒
+        multiplier: 1.1
+        # 最大间隔时间，默认为 2000 毫秒
+        max-interval: 2000
+        # 最大重试次数，默认为 6 次
+        max-attempts: 6
+      discovery:
+        # 开启访问服务端
+        enabled: true
+        # 指定服务端注册的服务名
+        service-id: config-server
+#
+eureka:
+  client:
+    service-url:
+      defaultZone: http://peer1:1111/eureka/,http://peer2:2222/eureka/
+    fetch-registry: true
+    registry-fetch-interval-seconds: 30

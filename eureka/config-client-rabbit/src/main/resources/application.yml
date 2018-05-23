@@ -1,0 +1,16 @@
+#
+server:
+  port: 6004
+spring:
+  application:
+    name: config-client-rabbit
+  profiles:
+    active: dev
+#
+management:
+  endpoints:
+    web:
+      exposure:
+        # \u7AEF\u5916\u66B4\u9732\u7684\u7AEF\u70B9\uFF0C\u4F7F\u7528 "*" \u8868\u793A\u66B4\u9732\u6240\u6709\u7684\u7AEF\u70B9\uFF0Cbus-refresh \u9ED8\u8BA4\u662F\u4E0D\u66B4\u9732\u7684
+        include: "*"
+        exclude: env,beans
