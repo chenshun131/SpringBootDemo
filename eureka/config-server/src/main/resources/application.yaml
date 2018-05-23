@@ -33,8 +33,8 @@ spring:
           default-label: master
           # 仓库路径下的相对搜索位置，可以配置多个
           search-paths: /demo
-          username: xxxx
-          password: xxxx
+          username: chenshun131
+          password: k13100689881cs
 #
 eureka:
   client:

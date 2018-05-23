@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: consume
   cloud:
     stream:
       # 指定用kafka stream来作为默认消息中间件
