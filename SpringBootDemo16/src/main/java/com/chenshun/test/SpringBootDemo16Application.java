@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class SpringBootDemo16Application {
 
-//    @Bean
+//    @bean
 //    @ConfigurationProperties(prefix = "myprops")
 //    public MyProps myProps() {
 //        return new MyProps();

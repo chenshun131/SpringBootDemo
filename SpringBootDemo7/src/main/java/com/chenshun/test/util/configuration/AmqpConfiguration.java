@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AmqpConfiguration {
 
-//    @Bean
+//    @bean
 //    public Queue queue() {
 //        return new Queue("chenshun.queue");
 //    }

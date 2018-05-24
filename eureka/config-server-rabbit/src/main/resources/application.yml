@@ -1,0 +1,51 @@
+#
+server:
+  port: 6001
+# \u5E94\u7528\u81EA\u5B9A\u4E49\u914D\u7F6E logback
+logging:
+  config: classpath:logback-config.xml
+spring:
+  application:
+    name: config-server
+  profiles:
+    active: dev
+  cloud:
+    stream:
+      bindings:
+        # \u7ED1\u5B9A\u7684\u961F\u5217
+        input:
+          # \u5BF9\u6D88\u606F\u8FDB\u884C\u5206\u7EC4
+          group: order
+          # \u53D1\u9001\u6D88\u606F\u7684\u7C7B\u578B\uFF0C\u6B21\u6570\u4EE5 JSON \u5F62\u5F0F\u8F6C\u6362\u5BF9\u8C61
+          content-type: application/json
+    config:
+      server:
+        git:
+          # Git \u4ED3\u5E93\u5730\u5740
+          uri: https://github.com/chenshun131/springcloud-config
+          # \u9ED8\u8BA4\u8BBF\u95EE\u5206\u652F
+          default-label: master
+          # \u4ED3\u5E93\u8DEF\u5F84\u4E0B\u7684\u76F8\u5BF9\u641C\u7D22\u4F4D\u7F6E\uFF0C\u53EF\u4EE5\u914D\u7F6E\u591A\u4E2A
+          search-paths: /demo
+          username: chenshun131
+          password: k13100689881cs
+  rabbitmq:
+    host: ci-server
+    port: 5672
+    username: chenshun
+    password: 123456
+#
+eureka:
+  client:
+    service-url:
+      defaultZone: http://peer1:1111/eureka/,http://peer2:2222/eureka/
+    fetch-registry: true
+    registry-fetch-interval-seconds: 30
+#
+management:
+  endpoints:
+    web:
+      exposure:
+        # \u7AEF\u5916\u66B4\u9732\u7684\u7AEF\u70B9\uFF0C\u4F7F\u7528 "*" \u8868\u793A\u66B4\u9732\u6240\u6709\u7684\u7AEF\u70B9\uFF0Cbus-refresh \u9ED8\u8BA4\u662F\u4E0D\u66B4\u9732\u7684
+        include: "*"
+        exclude: env,beans
