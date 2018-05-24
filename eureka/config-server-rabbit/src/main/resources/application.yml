@@ -1,7 +1,7 @@
 #
 server:
   port: 6001
-# \u5E94\u7528\u81EA\u5B9A\u4E49\u914D\u7F6E logback
+# 应用自定义配置 logback
 logging:
   config: classpath:logback-config.xml
 spring:
@@ -12,20 +12,20 @@ spring:
   cloud:
     stream:
       bindings:
-        # \u7ED1\u5B9A\u7684\u961F\u5217
+        # 绑定的 通道
         input:
-          # \u5BF9\u6D88\u606F\u8FDB\u884C\u5206\u7EC4
+          # 对消息进行分组
           group: order
-          # \u53D1\u9001\u6D88\u606F\u7684\u7C7B\u578B\uFF0C\u6B21\u6570\u4EE5 JSON \u5F62\u5F0F\u8F6C\u6362\u5BF9\u8C61
+          # 发送消息的类型，次数以 JSON 形式转换对象
           content-type: application/json
     config:
       server:
         git:
-          # Git \u4ED3\u5E93\u5730\u5740
+          # Git 仓库地址
           uri: https://github.com/chenshun131/springcloud-config
-          # \u9ED8\u8BA4\u8BBF\u95EE\u5206\u652F
+          # 默认访问分支
           default-label: master
-          # \u4ED3\u5E93\u8DEF\u5F84\u4E0B\u7684\u76F8\u5BF9\u641C\u7D22\u4F4D\u7F6E\uFF0C\u53EF\u4EE5\u914D\u7F6E\u591A\u4E2A
+          # 仓库路径下的相对搜索位置，可以配置多个
           search-paths: /demo
           username: chenshun131
           password: k13100689881cs
@@ -46,6 +46,6 @@ management:
   endpoints:
     web:
       exposure:
-        # \u7AEF\u5916\u66B4\u9732\u7684\u7AEF\u70B9\uFF0C\u4F7F\u7528 "*" \u8868\u793A\u66B4\u9732\u6240\u6709\u7684\u7AEF\u70B9\uFF0Cbus-refresh \u9ED8\u8BA4\u662F\u4E0D\u66B4\u9732\u7684
+        # 端外暴露的端点，使用 "*" 表示暴露所有的端点，bus-refresh 默认是不暴露的
         include: "*"
         exclude: env,beans
