@@ -9,9 +9,6 @@ eureka:
     registry-fetch-interval-seconds: 30
 #
 turbine:
-  aggregator:
-  #
-  cluster-config: default
   # 需要收集监控信息的服务名，配置 Eureka 中的 serviceId 列表，表明监控哪些服务
   app-config: CONSUMER1,CONSUMER2
   # 指定集群名称，当服务数量非常多的时候，可以启动多个 Turbine 服务来构建不同的聚合集群，而该参数
