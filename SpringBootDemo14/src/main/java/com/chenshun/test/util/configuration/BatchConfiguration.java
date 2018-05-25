@@ -69,19 +69,19 @@ public class BatchConfiguration {
                 .build();
     }
 
-//    @Bean
+//    @bean
 //    public ItemReader<Person> reader() throws Exception {
 //        // 新建ItemReader接口的实现类返回
 //        return reader;
 //    }
 //
-//    @Bean
+//    @bean
 //    public ItemProcessor<Person, Person> processor() {
 //        // 新建ItemProcessor接口的实现类返回
 //        return processor;
 //    }
 //
-//    @Bean
+//    @bean
 //    public ItemWriter<Person> writer(DataSource dataSource) {
 //        // 新建ItemWriter接口的实现类返回
 //        return writer;
