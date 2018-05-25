@@ -13,15 +13,15 @@ import org.springframework.stereotype.Component;
  * Version: V1.0  <p />
  * Description:  <p />
  */
-@Component
-public class SendMessage {
-
-    @Autowired
-    private StreamClient streamClient;
-
-    public boolean send(Order order) {
-        Message<Order> message = MessageBuilder.withPayload(order).build();
-        return streamClient.output().send(message);
-    }
-
-}
+//@Component
+//public class SendMessage {
+//
+//    @Autowired
+//    private StreamClient streamClient;
+//
+//    public boolean send(Order order) {
+//        Message<Order> message = MessageBuilder.withPayload(order).build();
+//        return streamClient.output().send(message);
+//    }
+//
+//}

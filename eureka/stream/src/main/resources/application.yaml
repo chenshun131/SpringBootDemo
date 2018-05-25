@@ -2,7 +2,7 @@
 server:
   port: 6101
 logging:
-  config: classpath:logback-config.xml
+  config: classpath:logback-stream.xml
 spring:
   application:
     name: config-server
@@ -10,16 +10,142 @@ spring:
     active: dev
   cloud:
     stream:
-      # \u6307\u5B9A\u7528kafka stream\u6765\u4F5C\u4E3A\u9ED8\u8BA4\u6D88\u606F\u4E2D\u95F4\u4EF6
-      default-binder: kafka
+      bindings:
+        # 绑定的 通道，消费者通道 自定义
+        input:
+          # 存在多个绑定器是，用来指具体的绑定器
+          binder: kafka
+          # 消息通道绑定在消息中间件的目标名称，比如 rabbitMQ 的 Exchange 或 Kafka 的 Topic，如果绑定通道是一个消费者，则可以绑定多个目标使用逗号隔开，没有设置该属性将使用通道名
+          destination: raw-sensor-data
+          # 对消息进行分组
+          group: order
+          # 发送消息的类型，次数以 JSON 形式转换对象
+          content-type: application/json
+          consumer:
+            # 输入通道消费者并发数
+            concurrency: 1
+            # 开启消费者分区功能
+            partitioned: true
+            # 对输入通道消息处理的最大重试次数
+            max-attempts: 3
+            # 重试消息处理的初始间隔时间
+            back-off-initial-interval: 1000
+            # 重试消息处理的最大间隔时间
+            back-off-max-interval: 10000
+            # 重试处理时间间隔的递增乘数
+            back-off-multiplier: 2.0
+        # 绑定的 通道，生产者通道 自定义
+        output:
+          # 消息通道绑定在消息中间件的目标名称，比如 rabbitMQ 的 Exchange 或 Kafka 的 Topic，如果绑定通道是一个消费者，则可以绑定多个目标使用逗号隔开，没有设置该属性将使用通道名
+          destination: raw-sensor-data
+          # 对消息进行分组
+          group: order
+          # 发送消息的类型，次数以 JSON 形式转换对象
+          content-type: application/json
+          producer:
+            # 指定分区键表达式规则，根据实际的输出消息规则配置 SpEL 来生成合适的分区键，该参数与 partitionKeyExtractorClass 参数互斥
+            partition-key-expression: productId
+            # 指定消息分区的数量
+            partition-count: 2
+      # 指定默认消息中间件
+      default-binder: rabbit
+      # 指定消费者总实例数量
+      instance-count: 2
+      # 指定当前实例的索引号，范围是 0~(实例数量-1)
+      instance-index: 0
+      ## 对 RabbitMQ 有效的一些参数设置
+      rabbit:
+        bindings:
+          # 绑定的 通道 自定义
+          input:
+            consumer:
+              # 设置消息去人模式
+              acknowledge-mode: org.springframework.amqp.core.AcknowledgeMode.AUTO
+              # 设置订阅是否被持久化，该参数在 group 被设置的时候有效
+              durable-subscription: true
+              # 消费者最大并发数
+              max-concurrency: 1
+              # 设置预取数量，表示在一次会话中从消息中间件中获取的消息数量，该值越大消息处理越快，但是也会导致非顺序处理风险
+              prefetch: 1
+              # 用来设置恢复连接的尝试时间间隔，以毫秒为单位
+              recovery-interval: 5000
+              # 设置消息传递失败时重传
+              requeue-rejected: false
+              # 是否启用 channel-transacted，即是否在消息中使用事务
+              transacted: false
+              # 用于设置 transaction-size 的数量，当 acknowledge-mode 设置为 AUTO 时，容器会处理 txSize 数目消息之后才开始应答
+              tx-size: 1
+            producer:
+              # 是否启用消息批处理
+              batching-enabled: false
+              # 当批处理开启时，用来设置缓存的批处理消息数量
+              batch-size: 100
+              # 批处理缓存限制
+              batch-buffer-limit: 10000
+              # 批处理超时时间
+              batch-timeout: 5000
+              # 消息发送时是否启用压缩
+              compress: false
+              # 消息发送模式
+              deliveryMode: org.springframework.amqp.core.MessageDeliveryMode.PERSISTENT
+      ## 对 Kafka 有效的一些参数设置
       kafka:
-        # \u6765\u81EA KafkaBinderConfigurationProperties
-        binder:
+        binder: # 通用配置
+          # Kafka 中间件列表，多个之间使用逗号隔开
           brokers: ci-server:9092,ci-server:9093,ci-server:9094
-          # \u5982\u679C\u9700\u8981\u4F20\u9012\u81EA\u5B9A\u4E49header\u4FE1\u606F\uFF0C\u9700\u8981\u5728\u6B64\u5904\u58F0\u660E\uFF0C\u4E0D\u7136\u81EA\u5B9A\u4E49\u6D88\u606F\u5934\u662F\u4E0D\u4F1A\u51FA\u73B0\u5728\u6700\u7EC8\u6D88\u606F\u5F53\u4E2D\u7684
-          # headers: myType
-          configuration:
-            auto:
-              offset:
-              # \u53EF\u4EE5\u8BBE\u7F6E\u539F\u751Fkafka\u5C5E\u6027\uFF0C\u6BD4\u5982\u8BBE\u7F6E\u65B0\u7684\u6D88\u8D39\u7EC4\u4ECE\u6700\u65B0\u7684offset\u5F00\u59CB\u6D88\u8D39
-              reset: latest
+          # 被传输定义的头信息
+          headers:
+          # 确认消息的数量
+          required-acks: "1"
+          # 仅在设置 autoCreateTopics 和 autoAddPartitions 时生效，用来设置该绑定器所使用主题的全分区最小数量
+          min-partition-count: 1
+          # 默认为 true，绑定会自动创建新主题。如果没有设置为 false，那么绑定器经使用已经配置的主题，但是在这种情况下，如果需要使用的主题不存在，绑定器会启动失败
+          auto-create-topics: true
+          # 默认为 false，绑定器会根据已配置的主题分区来实现，如果目标主题的分区小于预期值，那么绑定器会启动失败。如果该参数设置为 true，绑定器将在需要的时候自动创建新的分区
+          auto-add-partitions: false
+        bindings:
+          # 绑定的 通道 自定义
+          input:
+            consumer:
+              # 是否在处理消息时自动提交 offset。如果设置为 false，在消息头中会加入 ACK 头信息以实现延迟确认
+              auto-commit-offset: true
+              # 只在 auto-commit-offset 设置为 true 时才生效。当设置为 false 的时候，引起错误的消息不会自动提交 offset，仅提交成功消息的 offset。如果设置为 true，不论消息是否成功，都会自动提交
+              auto-commit-on-error: false
+              # 尝试恢复连接的时间间隔，单位 毫秒
+              recovery-interval: 5000
+              # 是否使用提供的 resetOffset 值来重置消费者的 offset 值
+              reset-offsets: false
+              # 用来设置新建组的起始 offset，该值也会在 reset-offsets 开始时被使用
+              start-offset:
+              # 该参数设置为 true，将为消费者启用 DLQ 行为，引起错误的消息将被发送到名为 error.<destination>.<group> 的主题中去
+              enable-dlq: false
+            producer:
+              # Kafka 批量发送前的缓存数据上限，以字节为单位
+              buffer-size: 16384
+              # 设置 kafka 消息生产者的发送模式，默认为 false，即采用 async 配置，允许批量发送数据。当设置为 true 时，将采用 sync 配置，消息将不会被批量发送，而是一条一条的发送
+              sync: false
+              # 消息批量发送时，为了积累更多发送数据而设置的等待时间。通常情况下，生产者基本不会等待，而是直接发送所有在前一批次发送时积累的消息数据。当设置一个非0值时，可以以延迟为代价来增加系统的吞吐量
+              batch-timeout: 0
+  rabbitmq:
+    host: ci-server
+    port: 5672
+    username: chenshun
+    password: 123456
+  kafka:
+    bootstrap-servers: ci-server:9092,ci-server:9093,ci-server:9094
+    producer:
+      retries: 0
+      # 每次批量发送消息的数量
+      batch-size: 16384
+      buffer-memory: 33554432
+      # 指定消息key和消息体的编解码方式
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: eshop-cache-group
+      auto-offset-reset: earliest
+      enable-auto-commit: true
+      auto-commit-interval: 1s
+      # 指定消息key和消息体的编解码方式
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer

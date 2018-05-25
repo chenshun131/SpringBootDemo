@@ -1,6 +1,6 @@
 #
 server:
-  port: 6001
+  port: 60012
 # 应用自定义配置 logback
 logging:
   config: classpath:logback-config.xml
@@ -14,6 +14,15 @@ spring:
       bindings:
         # 绑定的 通道
         input:
+          # 绑定器绑定到的代理的物理名称
+          destination: raw-sensor-data
+          # 对消息进行分组
+          group: order
+          # 发送消息的类型，次数以 JSON 形式转换对象
+          content-type: application/json
+        output:
+          # 绑定器绑定到的代理的物理名称
+          destination: raw-sensor-data
           # 对消息进行分组
           group: order
           # 发送消息的类型，次数以 JSON 形式转换对象
@@ -27,8 +36,8 @@ spring:
           default-label: master
           # 仓库路径下的相对搜索位置，可以配置多个
           search-paths: /demo
-          username: xxxx
-          password: xxxx
+          username: chenshun131
+          password: k13100689881cs
   rabbitmq:
     host: ci-server
     port: 5672

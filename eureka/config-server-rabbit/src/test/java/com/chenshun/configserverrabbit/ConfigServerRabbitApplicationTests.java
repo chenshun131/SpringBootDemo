@@ -1,8 +1,8 @@
 package com.chenshun.configserverrabbit;
 
-import com.chenshun.configserverrabbit.bean.Order;
+//import com.chenshun.configserverrabbit.bean.Order;
 import com.chenshun.configserverrabbit.message.RabbitSender;
-import com.chenshun.configserverrabbit.message.SendMessage;
+//import com.chenshun.configserverrabbit.message.SendMessage;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,16 +27,16 @@ public class ConfigServerRabbitApplicationTests {
         rabbitSender.send("myOrder", "fruit", "测试数据");
     }
 
-    @Autowired
-    private SendMessage sendMessage;
-
-    @Test
-    public void sendOrder2() {
-        Order order = new Order();
-        order.setId(1L);
-        order.setName("订单'");
-        order.setCount(10);
-        sendMessage.send(order);
-    }
+//    @Autowired
+//    private SendMessage sendMessage;
+//
+//    @Test
+//    public void sendOrder2() {
+//        Order order = new Order();
+//        order.setId(1L);
+//        order.setName("订单'");
+//        order.setCount(10);
+//        sendMessage.send(order);
+//    }
 
 }

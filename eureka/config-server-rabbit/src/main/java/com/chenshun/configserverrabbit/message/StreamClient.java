@@ -11,16 +11,16 @@ import org.springframework.messaging.SubscribableChannel;
  * Version: V1.0  <p />
  * Description:  <p />
  */
-public interface StreamClient {
-
-    String INPUT = "input";
-
-    String OUTPUT = "output";
-
-    @Input(StreamClient.INPUT)
-    SubscribableChannel input();
-
-    @Output(StreamClient.OUTPUT)
-    MessageChannel output();
-
-}
+//public interface StreamClient {
+//
+//    String INPUT = "input1";
+//
+//    String OUTPUT = "output1";
+//
+//    @Input(StreamClient.INPUT)
+//    SubscribableChannel input();
+//
+//    @Output(StreamClient.OUTPUT)
+//    MessageChannel output();
+//
+//}
