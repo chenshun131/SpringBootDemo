@@ -40,4 +40,3 @@ management:
         # 端外暴露的端点，使用 "*" 表示暴露所有的端点，bus-refresh 默认是不暴露的
         include: "*"
         exclude: env,beans
-
