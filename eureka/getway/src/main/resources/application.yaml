@@ -30,5 +30,14 @@ zuul:
     consumer2:
       path: /consumer2/**
       serviceId: CONSUMER1
+  # 重试机制失败
+  retryable: true
 #
+management:
+  endpoints:
+    web:
+      exposure:
+        # 端外暴露的端点，使用 "*" 表示暴露所有的端点，bus-refresh 默认是不暴露的
+        include: "*"
+        exclude: env,beans
 
