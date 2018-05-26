@@ -4,6 +4,7 @@ import com.chenshun.consumer.bean.User;
 import com.chenshun.consumer.service.HelloService;
 import com.chenshun.consumer.util.command.UserCommand;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +28,7 @@ public class HelloController {
     @Autowired
     private RestTemplate restTemplate;
 
+    @CrossOrigin(allowCredentials = "true") // 表示允许 Cookie 跨域
     @RequestMapping(value = "/consumer", method = RequestMethod.GET)
     public String helloConsumer() {
         return helloService.helloService();

@@ -1,17 +1,19 @@
 server:
   port: 9001
+# 应用自定义配置 logback
+logging:
+  config: classpath:logback-consumer.xml
 spring:
+  profiles:
+    active: dev
   application:
     name: consumer1
+  zipkin:
+    base-url: http://ci-server:9411
   sleuth:
     sampler:
+      # 抽样百分比，开发环境可以设置为 1 也就是 100%
       probability: 1
-  # 指定zipkin server的地址
-  zipkin:
-    locator:
-      discovery:
-        enabled: true
-    base-url: http://127.0.0.1:9411
 #
 eureka:
   client:

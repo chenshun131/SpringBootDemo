@@ -8,31 +8,6 @@ spring:
 logging:
   config: classpath:logback-getway.xml
 #
-eureka:
-  client:
-    service-url:
-      defaultZone: http://peer1:1111/eureka/,http://peer2:2222/eureka/
-    fetch-registry: true
-    registry-fetch-interval-seconds: 30
-#
-zuul:
-  sensitiveHeaders:
-  strip-prefix: false
-  prefix: /api
-  ignored-patterns: /**/admin/**
-  # 忽略的路由路径，指定访问的路由路径除外 (此处表示除 /myusers/**，外其他路径)
-  ignored-services: '*'
-  # 指定可以访问的路径
-  routes:
-    consumer1:
-      path: /consumer1/**
-      serviceId: CONSUMER1
-    consumer2:
-      path: /consumer2/**
-      serviceId: CONSUMER1
-  # 重试机制失败
-  retryable: true
-#
 management:
   endpoints:
     web:
@@ -40,3 +15,10 @@ management:
         # 端外暴露的端点，使用 "*" 表示暴露所有的端点，bus-refresh 默认是不暴露的
         include: "*"
         exclude: env,beans
+#
+zuul:
+  filter:
+    # 过滤器存放的根目录
+    root: filter
+    # 扫描时间间隔
+    interval: 5
