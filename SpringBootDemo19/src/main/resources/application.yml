@@ -1,3 +1,27 @@
 spring:
   application:
     name: springbootdemo19
+  resources:
+    chain:
+      strategy:
+        content:
+          # 是否启动版本策略
+          enabled: true
+          # 启用版本策略的路径，多个之间使用逗号隔开
+          paths: /css/**
+        fixed:
+          # 是否启动修改版本策略
+          enabled: true
+          # 启用版本策略的路径，多个之间使用逗号隔开
+          paths: /js/**,/v1.0.0/**
+          # 版本
+          version: v1.0.0
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      trigger-file: .trigger
+      exclude: templates/**
+  resources:
+    cache:
+      period: 60s
