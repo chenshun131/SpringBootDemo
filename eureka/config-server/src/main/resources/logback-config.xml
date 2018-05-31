@@ -18,7 +18,7 @@
                 <charset>UTF-8</charset>
             </encoder>
         </appender>
-        <logger name="com.chenhsun" level="debug"/>
+        <logger name="com.chenshun" level="debug"/>
 
         <!--<logger name="org.springframework.jdbc.core.JdbcTemplate" level="debug"/>-->
         <!-- log4jdbc -->
