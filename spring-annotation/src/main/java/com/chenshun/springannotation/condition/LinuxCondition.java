@@ -16,24 +16,21 @@ public class LinuxCondition implements Condition {
      */
     @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-        // TODO是否linux系统
-        //1、能获取到ioc使用的beanfactory
+        // TODO 是否linux系统
+        // 1、能获取到 ioc 使用的 beanfactory
         ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();
-        //2、获取类加载器
+        // 2、获取类加载器
         ClassLoader classLoader = context.getClassLoader();
-        //3、获取当前环境信息
+        // 3、获取当前环境信息
         Environment environment = context.getEnvironment();
-        //4、获取到bean定义的注册类
+        // 4、获取到 bean定义的注册类
         BeanDefinitionRegistry registry = context.getRegistry();
 
         String property = environment.getProperty("os.name");
 
-        //可以判断容器中的bean注册情况，也可以给容器中注册bean
+        // 可以判断容器中的 bean注册情况，也可以给容器中注册 bean
         boolean definition = registry.containsBeanDefinition("person");
-        if (property.contains("linux")) {
-            return true;
-        }
-        return false;
+        return property.contains("linux");
     }
 
 }

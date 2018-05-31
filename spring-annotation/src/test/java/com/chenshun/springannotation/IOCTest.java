@@ -41,7 +41,7 @@ public class IOCTest {
     public void test03() {
         String[] namesForType = applicationContext.getBeanNamesForType(Person.class);
         ConfigurableEnvironment environment = applicationContext.getEnvironment();
-        // 动态获取环境变量的值；Windows 10
+        // 动态获取环境变量的值；Windows 10、Mac OS X
         String property = environment.getProperty("os.name");
         System.out.println(property);
         for (String name : namesForType) {

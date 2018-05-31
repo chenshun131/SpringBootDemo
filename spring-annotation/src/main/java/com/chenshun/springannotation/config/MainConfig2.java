@@ -4,15 +4,12 @@ import com.chenshun.springannotation.bean.Color;
 import com.chenshun.springannotation.bean.ColorFactoryBean;
 import com.chenshun.springannotation.bean.Person;
 import com.chenshun.springannotation.bean.Red;
-import com.chenshun.springannotation.condition.LinuxCondition;
-import com.chenshun.springannotation.condition.MyImportBeanDefinitionRegistrar;
-import com.chenshun.springannotation.condition.MyImportSelector;
-import com.chenshun.springannotation.condition.WindowsCondition;
+import com.chenshun.springannotation.condition.*;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.*;
 
 //类中组件统一设置。满足当前条件，这个类中配置的所有bean注册才能生效；
-@Conditional({WindowsCondition.class})
+//@Conditional({WindowsCondition.class})
 @Configuration
 @Import({Color.class, Red.class, MyImportSelector.class, MyImportBeanDefinitionRegistrar.class})
 //@Import导入组件，id默认是组件的全类名
@@ -52,7 +49,6 @@ public class MainConfig2 {
 	 * 如果系统是windows，给容器中注册("bill")
 	 * 如果是linux系统，给容器中注册("linus")
 	 */
-
 	@Bean("bill")
 	public Person person01(){
 		return new Person("Bill Gates",62);
@@ -62,6 +58,12 @@ public class MainConfig2 {
 	@Bean("linus")
 	public Person person02(){
 		return new Person("linus", 48);
+	}
+
+	@Conditional(MacCondition.class)
+	@Bean("mac")
+	public Person person03(){
+		return new Person("mac", 48);
 	}
 
 	/**
