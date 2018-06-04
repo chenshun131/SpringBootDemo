@@ -11,16 +11,24 @@ public class Cat implements InitializingBean, DisposableBean {
         System.out.println("cat constructor...");
     }
 
-    @Override
-    public void destroy() throws Exception {
-        // TODO Auto-generated method stub
-        System.out.println("cat...destroy...");
-    }
-
+    /**
+     * 定义初始化逻辑
+     *
+     * @throws Exception
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
-        // TODO Auto-generated method stub
         System.out.println("cat...afterPropertiesSet...");
+    }
+
+    /**
+     * 定义销毁逻辑
+     *
+     * @throws Exception
+     */
+    @Override
+    public void destroy() throws Exception {
+        System.out.println("cat...destroy...");
     }
 
 }
