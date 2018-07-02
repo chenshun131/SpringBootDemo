@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: eureka-server
+server:
+  port: 2222
+#
+eureka:
+  instance:
+    instance-id: bbbb
+    hostname: peer2
+    metadata-map:
+      zone: zone2
+  client:
+    # \u662F\u5426\u4F7F\u7528\u76F8\u540C\u533A\u57DF Eureka Server
+    preferSameZoneEureka: true
+    serviceUrl:
+      defaultZone: http://peer1:1111/eureka/,http://peer2:2222/eureka/

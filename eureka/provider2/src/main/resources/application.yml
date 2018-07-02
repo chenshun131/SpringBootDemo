@@ -1,0 +1,22 @@
+server:
+  port: 8082
+  tomcat:
+    uri-encoding: utf-8
+#
+spring:
+  application:
+    name: hello-service-group
+  http:
+    encoding:
+      force: true
+  sleuth:
+    sampler:
+      probability: 1
+#
+eureka:
+  instance:
+    metadata-map:
+      cluster: DRUNCK
+  client:
+    serviceUrl:
+      defaultZone: http://peer1:1111/eureka/,http://peer2:2222/eureka/

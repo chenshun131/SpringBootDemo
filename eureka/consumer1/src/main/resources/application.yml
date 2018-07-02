@@ -16,6 +16,8 @@ spring:
       probability: 1
 #
 eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 30
   client:
     service-url:
       defaultZone: http://peer1:1111/eureka/,http://peer2:2222/eureka/

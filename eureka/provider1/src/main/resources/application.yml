@@ -1,0 +1,31 @@
+server:
+  port: 8081
+  tomcat:
+    uri-encoding: utf-8
+#
+spring:
+  application:
+    name: hello-service-group
+  sleuth:
+    sampler:
+      probability: 1
+  http:
+    encoding:
+      force: true
+  zipkin:
+    base-url: http://127.0.0.1:9411
+    locator:
+      discovery:
+        enabled: true
+#
+eureka:
+  instance:
+    metadata-map:
+      cluster: DRUNCK
+  client:
+    serviceUrl:
+      defaultZone: http://peer1:1111/eureka/,http://peer2:2222/eureka/
+#
+logging:
+  level:
+    org.springframework.cloud.openfeign: debug
