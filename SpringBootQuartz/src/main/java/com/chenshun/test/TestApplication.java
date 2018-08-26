@@ -4,12 +4,12 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@MapperScan("com.chenshun.test.mapper")
+@MapperScan("com.chenshun.test.dao")
 @SpringBootApplication
-public class SpringBootDemo21Application {
+public class TestApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringBootDemo21Application.class, args);
+        SpringApplication.run(TestApplication.class, args);
     }
 
 }

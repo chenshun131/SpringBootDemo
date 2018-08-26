@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://190.0.1.88:3306/hello_test?useUnicode=true
+    username: root
+    password: 123456
+mybatis:
+  mapper-locations: classpath:com/chenshun/test/mapper/*.xml
