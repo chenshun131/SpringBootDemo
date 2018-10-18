@@ -47,7 +47,9 @@ import org.springframework.context.annotation.Primary;
  * ApplicationContextAware==》ApplicationContextAwareProcessor；
  */
 @Configuration
-@ComponentScan({"com.chenshun.springannotation.service", "com.chenshun.springannotation.dao", "com.chenshun.springannotation.controller",
+@ComponentScan({"com.chenshun.springannotation.service",
+        "com.chenshun.springannotation.dao",
+        "com.chenshun.springannotation.controller",
         "com.chenshun.springannotation.bean"})
 public class MainConifgOfAutowired {
 

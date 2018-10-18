@@ -1,0 +1,14 @@
+server:
+  port: 8080
+spring:
+  cache:
+    type: redis
+  redis:
+    database: 1
+    host: ci-server # server host
+    port: 6379 # connection port
+    pool:
+      max-idle: 8 # pool settings ...
+      min-idle: 1
+      max-active: 8
+      max-wait: -1

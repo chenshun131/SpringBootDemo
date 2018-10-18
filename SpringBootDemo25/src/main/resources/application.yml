@@ -11,3 +11,4 @@ spring:
 flyway:
   # \u914D\u7F6E Flyway \u8981\u52A0\u8F7D\u7684 SQL\u811A\u672C\u4F4D\u7F6E
   locations: classpath:/db
+  baseline-on-migrate: true
