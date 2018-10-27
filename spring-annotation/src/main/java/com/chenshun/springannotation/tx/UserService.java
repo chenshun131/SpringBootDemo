@@ -13,8 +13,8 @@ public class UserService {
     @Transactional
     public void insertUser() {
         userDao.insert();
-        //otherDao.other();xxx
         System.out.println("插入完成...");
+        // 将抛出异常进行事务回滚
         int i = 10 / 0;
     }
 

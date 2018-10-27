@@ -1,7 +1,6 @@
 package com.chenshun.springannotation.tx;
 
-import javax.sql.DataSource;
-
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +9,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.mchange.v2.c3p0.ComboPooledDataSource;
+import javax.sql.DataSource;
 
 /**
  * <pre>
@@ -57,30 +56,38 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
  * </pre>
  */
 @EnableTransactionManagement
-@ComponentScan("com.atguigu.tx")
+@ComponentScan("com.chenshun.springannotation.tx")
 @Configuration
 public class TxConfig {
 
-    //数据源
+    /**
+     * 数据源
+     *
+     * @return
+     * @throws Exception
+     */
     @Bean
     public DataSource dataSource() throws Exception {
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
         dataSource.setUser("root");
         dataSource.setPassword("123456");
         dataSource.setDriverClass("com.mysql.jdbc.Driver");
-        dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/test");
+        dataSource.setJdbcUrl("jdbc:mysql://ci-server:3306/test");
         return dataSource;
     }
 
-    //
     @Bean
     public JdbcTemplate jdbcTemplate() throws Exception {
-        //Spring对@Configuration类会特殊处理；给容器中加组件的方法，多次调用都只是从容器中找组件
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
-        return jdbcTemplate;
+        // Spring 对 @Configuration 类会特殊处理；给容器中加组件的方法，多次调用都只是从容器中找组件
+        return new JdbcTemplate(dataSource());
     }
 
-    //注册事务管理器在容器中
+    /**
+     * 注册事务管理器在容器中
+     *
+     * @return
+     * @throws Exception
+     */
     @Bean
     public PlatformTransactionManager transactionManager() throws Exception {
         return new DataSourceTransactionManager(dataSource());
