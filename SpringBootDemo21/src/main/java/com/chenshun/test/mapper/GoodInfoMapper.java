@@ -11,7 +11,7 @@ import org.mapstruct.factory.Mappers;
 /**
  * 配置映射
  */
-@Mapper(componentModel = "spring")
+@Mapper
 public interface GoodInfoMapper {
 
     GoodInfoMapper MAPPER = Mappers.getMapper(GoodInfoMapper.class);

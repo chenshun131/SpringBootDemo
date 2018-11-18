@@ -47,7 +47,7 @@
         </javaClientGenerator>
 
         <!-- 要生成的数据库表.MYSQL可以加入主键自增、字段命名、忽略某字段等 -->
-        <table tableName="P_FenRunRecord" domainObjectName="FenRunRecord"
+        <table tableName="P_SaobeiPaySet" domainObjectName="SaobeiPaySet"
                enableInsert="true" enableSelectByPrimaryKey="true"
                enableSelectByExample="true" enableUpdateByPrimaryKey="true"
                enableDeleteByPrimaryKey="true" enableDeleteByExample="true"
